@@ -35,11 +35,13 @@ namespace Exercio01Fixacao.Entities
 
         public double Total()
         {
+            int sum;
             foreach (OrderItem item in orderItems)
             {
+                sum += int.Parse(item);
             }
 
-            return 0;
+            return sum;
 
         }
 

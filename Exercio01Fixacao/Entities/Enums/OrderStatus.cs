@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Exercio01Fixacao.Entities.Enums
 {
-    class ErderStatus
+    enum OrderStatus : int
     {
+        PendingPayment = 0,
+        Processing = 1,
+        Shipped = 2,
+        Delivered = 3,
     }
 }
