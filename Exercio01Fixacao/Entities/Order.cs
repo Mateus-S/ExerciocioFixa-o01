@@ -1,6 +1,7 @@
 ﻿using Exercio01Fixacao.Entities.Enums;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Exercio01Fixacao.Entities
@@ -8,8 +9,9 @@ namespace Exercio01Fixacao.Entities
     class Order
     {
         public DateTime Moment { get; set; }
-        public  OrderStatus Status { get; set; }
-        public List<OrderItem> orderItems = new List<OrderItem>();
+        public OrderStatus Status { get; set; }
+        public Client Client { get; set; }
+        public List<OrderItem> Items = new List<OrderItem>();
 
 
         public Order()
@@ -17,33 +19,54 @@ namespace Exercio01Fixacao.Entities
 
         }
 
-        public Order(DateTime moment, OrderStatus status)
+        public Order(DateTime moment, OrderStatus status, Client client)
         {
             Moment = moment;
             Status = status;
+            Client = client;
+
         }
 
         public void AddItem(OrderItem item)
         {
-            orderItems.Add(item);
+            Items.Add(item);
         }
 
-        public void RemoveItem (OrderItem item)
+        public void RemoveItem(OrderItem item)
         {
-            orderItems.Remove(item);
+            Items.Remove(item);
         }
 
         public double Total()
         {
-            int sum;
-            foreach (OrderItem item in orderItems)
+            double sum = 0.0;
+            foreach (OrderItem item in Items)
             {
-                sum += int.Parse(item);
+                sum += item.SubTotal();
             }
 
             return sum;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("Ordem Moments: " + Moment.ToString("dd/MM/yyyy HH:mm:ss"));
+            sb.AppendLine("Order Status: " + Status);
+            sb.AppendLine("Client: " + Client);
+            sb.AppendLine("Order items: ");
+            foreach (OrderItem item in Items)
+            {
+                sb.AppendLine(item.ToString());
+
+            }
+            sb.AppendLine("Total Price $" + Total().ToString("F2", CultureInfo.InvariantCulture));
+
+            return sb.ToString();
 
         }
+
 
     }
 }

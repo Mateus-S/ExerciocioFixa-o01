@@ -21,5 +21,14 @@ namespace Exercio01Fixacao.Entities
             Email = email;
             BirthDAte = birthDAte;
         }
+
+        public override string ToString()
+        {
+            return Name
+            + ", ("
+            + BirthDAte.ToString("dd/MM/yyyy")
+            + ") - "
+            + Email;
+        }
     }
 }
